@@ -34,6 +34,26 @@
             android:name="com.example.paquetcoachapp.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.ConsoEnCours"
+            android:label="@string/title_activity_conso_en_cours" >
+        </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.Stats"
+            android:label="@string/title_activity_stats" >
+        </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.Resau"
+            android:label="@string/title_activity_resau" >
+        </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.FakePack"
+            android:label="@string/title_activity_fake_pack" >
+        </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.FakeDate"
+            android:label="@string/title_activity_fake_date" >
+        </activity>
     </application>
 
 </manifest>

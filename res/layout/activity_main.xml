@@ -8,12 +8,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
+     <!--  suivi conso -->
+    <Button 
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:text="@string/main_bouton_1"
+         android:onClick="open_conso" />
+
+    <!--  stats -->
+    <Button
+        android:id="@+id/button3" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="72dp"
+        android:text="@string/main_bouton_2"
+        android:onClick="open_stats" />
+
+	<!--  réseau -->
+    <Button
+        android:id="@+id/button1" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="106dp"
-        android:text="@string/hello_world" />
+        android:layout_marginTop="168dp"
+        android:text="@string/main_bouton_3"
+         android:onClick="open_resau" />
 
 </RelativeLayout>

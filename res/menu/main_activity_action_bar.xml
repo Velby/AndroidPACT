@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
 
-<item android:id= "@+id/action_search"
-	android:title="@string/action_search"
-	android:showAsAction="ifRoom" />
+<item android:id="@+id/action_bluetooth" 
+    android:title="test BlueTooth" 
+    android:showAsAction="never" />
 
  
 <item android:id="@+id/action_settings" 
@@ -17,6 +17,7 @@
 
 <item android:id="@+id/credits"
      android:showAsAction="ifRoom"
+     android:label="biatch"
       android:title="@string/credits"/>
 
 <item android:id="@+id/action_fakePack" 

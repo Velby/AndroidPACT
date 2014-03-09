@@ -11,7 +11,7 @@
     <string name="title_activity_search">Search</string>
     <string name="button_send">OK</string>
     <string name="title_display_message_activity">Résultats</string>
-    <string name="credits">7/12</string>
+    <string name="credits">noData</string>
     <string name="refresh_button">rafraichir</string>
     <string name="main_bouton_1">Suivi</string>
     <string name="main_bouton_2">Statistiques et Conseils</string>
@@ -24,5 +24,6 @@
     <string name="title_activity_fake_date">FakeDate</string>
     <string name="action_fakePack">Fake Pack</string>
     <string name="action_clear_all">Clear All</string>
+    <string name="title_activity_bleutooth_test">BleutoothTestActivity</string>
 
 </resources>

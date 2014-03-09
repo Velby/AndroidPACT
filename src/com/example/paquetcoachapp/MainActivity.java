@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);//le bouton home fait crasher l'application donc je l'ai désactivé
+        refreshData();
 	 
     }
 
@@ -35,48 +36,54 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	// Inflate the menu items for use in the action bar
+    	super.onCreateOptionsMenu(menu);
     	MenuInflater inflater = getMenuInflater();
     	inflater.inflate(R.menu.main_activity_action_bar, menu);
-    	return super.onCreateOptionsMenu(menu);
+    	MenuItem menuConso= menu.findItem(R.id.credits);
+    	menuConso.setTitle(this.consoText());
+    	return true;
+    	
     }
     
-    public boolean onResume(Menu menu) {
+    public void onResume() {
+    	super.onResume();
     	this.refreshData();
-    	return super.onCreateOptionsMenu(menu);
+    	invalidateOptionsMenu();
+    	
     }
+    
+ 
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	// Handle presses on the action bar items
     	switch (item.getItemId()) {
-    	case R.id.action_search:
-    		openSearch();
-    		return true;
     	case R.id.action_settings:
     		openSettings();
     		return true;
     	case R.id.action_refresh:
     		refreshData();
+    		return true;
     	case R.id.action_fakePack:
     		openFakePack();
+    		return true;
+    	case R.id.action_bluetooth:
+    		openBlueTooth();
     		return true;
     	default:
     		return super.onOptionsItemSelected(item);
     	}
     }
-// ouvrir les paramètres
+
+
+
+	// ouvrir les paramètres
 	private void openSettings() {
 	   	Intent intent = new Intent(this,SettingsActivity.class);
     	startActivity(intent);
 		
 	}
 
-	//lancer une recherche sur l'appli
-	private void openSearch() {
-	   	Intent intent = new Intent(this, SearchActivity.class);
-    	startActivity(intent);
-		
-	}
 	
 	//lancer le faux paquet
 	private void openFakePack() {
@@ -87,13 +94,21 @@ public class MainActivity extends Activity {
 
 	//méthode pour aller voir la consommation en cours
 	public void open_conso(View view) {
+		refreshData();
 		Intent intent = new Intent(this, ConsoEnCours.class);
     	startActivity(intent);
 	}
 	
 	//méthode pour ouvrir les stats
 	public void open_stats(View view) {
+		refreshData();
 		Intent intent = new Intent(this, Stats.class);
+    	startActivity(intent);
+	}
+	
+	private void openBlueTooth() {
+		refreshData();
+		Intent intent = new Intent(this, BleutoothTestActivity.class);
     	startActivity(intent);
 	}
 
@@ -126,7 +141,7 @@ public class MainActivity extends Activity {
 			long date;
 
 			// La méthode read renvoie -1 dès qu'il n'y a plus rien à lire
-			while ((date = in.readLong()) != -1) {
+			while ((date = in.readLong()) != -1) {// on recopie tout
 				out.writeLong(date);
 			}
 			if (in != null)
@@ -134,6 +149,7 @@ public class MainActivity extends Activity {
 
 			if (out != null)
 				out.close();
+		
 		}
 		 catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -141,6 +157,19 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		
+	}
+		
+	public String consoText() { //mettre a jour l'affichage dans la barre d'actions
+		int smoked=0;
+		File appfile = new File(this.getFilesDir(), "donneesAppli");
+		DateArray allCigs=new DateArray(appfile);
+		if (allCigs.size()>0) {
+			smoked= allCigs.cigsToday();
+		}
+		
+		
+		return smoked+"/"+12;
+
 	}
 	
  

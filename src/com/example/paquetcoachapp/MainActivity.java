@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 	
 	//lancer le faux paquet
 	private void openFakePack() {
-	   	Intent intent = new Intent(this, FakePack.class);
+	   	Intent intent = new Intent(this, FakePackActivity.class);
     	startActivity(intent);
 		
 	}
@@ -95,27 +95,27 @@ public class MainActivity extends Activity {
 	//méthode pour aller voir la consommation en cours
 	public void open_conso(View view) {
 		refreshData();
-		Intent intent = new Intent(this, ConsoEnCours.class);
+		Intent intent = new Intent(this, ConsoEnCoursActivity.class);
     	startActivity(intent);
 	}
 	
 	//méthode pour ouvrir les stats
 	public void open_stats(View view) {
 		refreshData();
-		Intent intent = new Intent(this, Stats.class);
+		Intent intent = new Intent(this, StatsActivity.class);
     	startActivity(intent);
 	}
 	
 	private void openBlueTooth() {
 		refreshData();
-		Intent intent = new Intent(this, BleutoothTestActivity.class);
+		Intent intent = new Intent(this, BluetoothTestActivity.class);
     	startActivity(intent);
 	}
 
 		
 		//méthode pour aller voir le résau social
 	public void open_resau(View view) {
-		Intent intent = new Intent(this, Resau.class);
+		Intent intent = new Intent(this, ResauActivity.class);
     	startActivity(intent);
 	}
 	
@@ -162,7 +162,7 @@ public class MainActivity extends Activity {
 	public String consoText() { //mettre a jour l'affichage dans la barre d'actions
 		int smoked=0;
 		File appfile = new File(this.getFilesDir(), "donneesAppli");
-		DateArray allCigs=new DateArray(appfile);
+		CigDateArray allCigs=new CigDateArray(appfile);
 		if (allCigs.size()>0) {
 			smoked= allCigs.cigsToday();
 		}

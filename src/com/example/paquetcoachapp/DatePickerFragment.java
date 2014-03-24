@@ -14,13 +14,13 @@ public class DatePickerFragment extends DialogFragment
 implements DatePickerDialog.OnDateSetListener {
 
 	
-	FakePack fakePack;
+	FakePackActivity fakePack;
 	
 	 @Override
 	    public void onAttach(Activity activity) {
 	        super.onAttach(activity);
 	        try {
-	            fakePack = (FakePack) activity;
+	            fakePack = (FakePackActivity) activity;
 	        } catch (ClassCastException e) {
 	            throw new ClassCastException(activity.toString() + " must implement TimeListeners");
 	        }
@@ -31,10 +31,10 @@ implements DatePickerDialog.OnDateSetListener {
 @Override
 public Dialog onCreateDialog(Bundle savedInstanceState) {
 	ArrayList<Long> conso= fakePack.getConso();
-	Date date;
+	CigDate date;
 	int n=conso.size() -1;
 	if (n>-1) {
-		date= new Date(conso.get(n));
+		date= new CigDate(conso.get(n));
 	}
 	else date=fakePack.getDate();
 // Use the app date as the default values for the picker

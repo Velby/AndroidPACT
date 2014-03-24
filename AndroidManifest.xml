@@ -38,19 +38,19 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.ConsoEnCours"
+            android:name="com.example.paquetcoachapp.ConsoEnCoursActivity"
             android:label="@string/title_activity_conso_en_cours" >
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.Stats"
+            android:name="com.example.paquetcoachapp.StatsActivity"
             android:label="@string/title_activity_stats" >
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.Resau"
+            android:name="com.example.paquetcoachapp.ResauActivity"
             android:label="@string/title_activity_resau" >
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.FakePack"
+            android:name="com.example.paquetcoachapp.FakePackActivity"
             android:label="@string/title_activity_fake_pack" >
         </activity>
         <activity
@@ -58,7 +58,7 @@
             android:label="@string/title_activity_fake_date" >
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.BleutoothTestActivity"
+            android:name="com.example.paquetcoachapp.BluetoothTestActivity"
             android:label="@string/title_activity_bleutooth_test" >
         </activity>
     </application>

@@ -5,8 +5,8 @@ import org.joda.time.Days;
 public class CigDate {
 
 	private int year=0;
-	private int month=0;
-	private int day=0;
+	private int month=1;
+	private int day=1;
 	private int hour=0;
 	private int minute=0;
 	private int cigarettes=0;

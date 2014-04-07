@@ -1,8 +1,6 @@
 package com.example.paquetcoachapp;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -43,13 +41,13 @@ int month = date.getMonth();
 int day=date.getDay();
 
 // Create a new instance of DatePickerDialog and return it
-return new DatePickerDialog(getActivity(), this, year, month, day);
+return new DatePickerDialog(getActivity(), this, year, month-1, day);
 
 }
 
 public void onDateSet(DatePicker view, int year, int month, int day) {
 	
-	fakePack.onDateUpdate( year,  month, day);
+	fakePack.onDateUpdate( year,  month+1, day);
 
 }
 

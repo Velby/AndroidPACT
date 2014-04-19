@@ -1,12 +1,14 @@
 package com.example.paquetcoachapp;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.UUID;
   
 
   
+
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -28,6 +30,7 @@ public class BluetoothTestActivity extends Activity {
   private BluetoothAdapter btAdapter = null;
   private BluetoothSocket btSocket = null;
   private OutputStream outStream = null;
+  private InputStream inStream=null;
     
   // SPP UUID service 
   private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -110,6 +113,7 @@ public class BluetoothTestActivity extends Activity {
   
     try {
       outStream = btSocket.getOutputStream();
+      inStream = btSocket.getInputStream();
     } catch (IOException e) {
       errorExit("Fatal Error", "In onResume() and output stream creation failed:" + e.getMessage() + ".");
     }
@@ -121,9 +125,10 @@ public class BluetoothTestActivity extends Activity {
   
     Log.d(TAG, "...In onPause()...");
   
-    if (outStream != null) {
+    if (outStream != null|inStream!=null) {
       try {
         outStream.flush();
+        inStream.close();
       } catch (IOException e) {
         errorExit("Fatal Error", "In onPause() and failed to flush output stream: " + e.getMessage() + ".");
       }
@@ -162,6 +167,7 @@ public class BluetoothTestActivity extends Activity {
     Log.d(TAG, "...Send data: " + message + "...");
   
     try {
+    	
       outStream.write(msgBuffer);
     } catch (IOException e) {
       String msg = "In onResume() and an exception occurred during write: " + e.getMessage();
@@ -172,4 +178,24 @@ public class BluetoothTestActivity extends Activity {
         errorExit("Fatal Error", msg);       
     }
   }
+  
+  public void getData() {
+      byte[] buffer = new byte[1024];  // buffer store for the stream
+      int bytes; // bytes returned from read()
+
+      // Keep listening to the InputStream until an exception occurs
+      while (true) {
+          try {
+              // Read from the InputStream
+              bytes = inStream.read(buffer);
+              // Send the obtained bytes to the UI activity
+              //TODO
+          } catch (IOException e) {
+        	  Toast.makeText(getApplicationContext(), "Tout reçu", 3).show();
+              break;
+              
+          }
+      }
+  }
+
 }

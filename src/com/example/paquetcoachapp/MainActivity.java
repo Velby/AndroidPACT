@@ -20,6 +20,7 @@ import android.view.View;
 public class MainActivity extends Activity {
 	
 	public final static String EXTRA_MESSAGE = "com.example.heloworld.MESSAGE";
+	private static final String TAG = "bluetooth1";
 
 
     @Override

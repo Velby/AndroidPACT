@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -212,6 +214,19 @@ import android.widget.Toast;
 			this.date.setDay(day);
 			this.date.setCigarettes(0);
 			changerTexte();
+			
+		}
+		
+		public void randomConso(int duree, int moyenne, DateTime start) {
+			clearAll();
+			date=new CigDate(start,0);
+			for (int i=0; i<duree;i++){
+				date=new CigDate(start,0);
+				for (int j=0;j<Math.random()*moyenne;j++) smoke(null);
+				start.plusDays(1);
+			}
+				
+			
 			
 		}
 		

@@ -77,6 +77,15 @@ public class CigDate {
 		
 	}
 	
+	public CigDate(DateTime date,int cigs) {
+		year=date.getYear();
+		month=date.getMonthOfYear();
+		day=date.getDayOfMonth();
+		hour=date.getHourOfDay();
+		minute=date.getMinuteOfHour();
+		cigarettes=cigs;
+	}
+	
 	public void smokeUp() { //ajoute une cigarette à la date
 		this.cigarettes++;
 	}

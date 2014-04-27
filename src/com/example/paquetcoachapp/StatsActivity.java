@@ -29,6 +29,7 @@ public class StatsActivity extends Activity {
 	private CigDate today;
 	private XYPlot plot;
 	public SeekBar seekBar;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stats);
@@ -37,24 +38,26 @@ public class StatsActivity extends Activity {
 		seekBar.setOnSeekBarChangeListener(
 
                 new OnSeekBarChangeListener() {
-    int progress = 0;
-        @Override
-      public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) { 
-        refreshData();
-    	plotGraph(progresValue*7);
+                	int progress = 0;
+                	@Override
+                	public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) { 
+                		refreshData();
+                		plotGraph(progresValue*7);
         
-      }
+                		}
 
-      @Override
-      public void onStartTrackingTouch(SeekBar seekBar) {
-        //pas utile pour l'instant
-      }
+                	@Override
+                	public void onStartTrackingTouch(SeekBar seekBar) {
+                		//pas utile pour l'instant
+                	}
 
-      @Override
-      public void onStopTrackingTouch(SeekBar seekBar) {
-        //pas utile pour l'instant
-      }
-  });
+                	@Override
+                	public void onStopTrackingTouch(SeekBar seekBar) {
+                		//pas utile pour l'instant
+                	}
+                });
+		plotGraph(0);
+		
 	}
 
 	public void onResume () {

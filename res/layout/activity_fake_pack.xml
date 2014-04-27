@@ -9,35 +9,6 @@
     tools:context=".FakePackActivity" >
 
     <Button
-        android:id="@+id/smokeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/smokeButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp"
-        android:text="Smoke"
-        android:onClick="smoke" />
-
-    <Button
-        android:id="@+id/sendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/smokeButton"
-        android:layout_centerHorizontal="true"
-        android:onClick="sendDataClick"
-        android:text="Send" />
-
-    <TextView
-        android:id="@+id/text_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="63dp"
-        android:text="@string/hello_world"
-        android:textSize="20sp" />
-
-    <Button
         android:id="@+id/changeTimeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,8 +23,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/sendButton"
         android:onClick="changeDate"
         android:text="Change Date" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/smokeButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp"
+        android:onClick="sendDataClick"
+        android:text="Send" />
+
+    <Button
+        android:id="@+id/smokeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="smoke"
+        android:text="Smoke" />
+
+    <Button
+        android:id="@+id/randomSmokesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:onClick="randomConsoClick"
+        android:text="Conso Aléatoire" />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="ERROR"
+        android:textSize="20sp" />
 
 </RelativeLayout>

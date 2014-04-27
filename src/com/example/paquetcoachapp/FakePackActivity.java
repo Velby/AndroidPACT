@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.joda.time.DateTime;
 
@@ -50,7 +51,6 @@ import android.widget.Toast;
 	    
 		
 
-		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_fake_pack);
@@ -190,21 +190,18 @@ import android.widget.Toast;
 			}
 		
 		public void changerTexte() { //Créé le texte à afficher sur l'activité
-			String text_date= date.getHour()+":"+date.getMinute()+"   "+date.getDay()+"/"+date.getMonth()+"/"+date.getYear()+"\n"
+			String text= date.getHour()+":"+date.getMinute()+"   "+date.getDay()+"/"+date.getMonth()+"/"+date.getYear()+"\n"
 								+date.getCigarettes()+" cigs";
-			TextView monTexte = (TextView)findViewById(R.id.text_date);
-			monTexte.setText(text_date);
+			final TextView monTexte = (TextView)findViewById(R.id.text_date);
+			monTexte.setText(text);
 			invalidateOptionsMenu();
-			
-	        
 		}
 
 		public void onTimeUpdate(int hour, int minute) {
 			this.date.setHour(hour);
 			this.date.setMinute(minute);
 			this.date.setCigarettes(0);
-			changerTexte();
-			
+			changerTexte();			
 		}
 
 
@@ -217,17 +214,19 @@ import android.widget.Toast;
 			
 		}
 		
-		public void randomConso(int duree, int moyenne, DateTime start) {
+		private void randomConso(int duree, int moyenne, int ecartType, DateTime start) {// créé une consommation aléatoire sur une durée
 			clearAll();
-			date=new CigDate(start,0);
+			Random randomno = new Random();
 			for (int i=0; i<duree;i++){
 				date=new CigDate(start,0);
-				for (int j=0;j<Math.random()*moyenne;j++) smoke(null);
-				start.plusDays(1);
-			}
-				
-			
-			
+				Double rand=randomno.nextGaussian()*ecartType+moyenne;//nombre aléatoir de cigarettes fumées dans la journée
+				for (int j=0;j< rand.intValue() ;j++) smoke(null);
+				start=start.plusDays(1);
+			}		
+		}
+		
+		public void randomConsoClick(View v) {
+			randomConso(100,5,4,date.toDateTime());
 		}
 		
 

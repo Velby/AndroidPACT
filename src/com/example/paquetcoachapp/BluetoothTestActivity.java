@@ -1,5 +1,11 @@
 package com.example.paquetcoachapp;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,6 +14,7 @@ import java.util.UUID;
   
 
   
+
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -31,7 +38,7 @@ public class BluetoothTestActivity extends Activity {
   private BluetoothSocket btSocket = null;
   private OutputStream outStream = null;
   private InputStream inStream=null;
-    
+      
   // SPP UUID service 
   private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
   
@@ -53,15 +60,15 @@ public class BluetoothTestActivity extends Activity {
   
     btnOn.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
-        sendData("1");
-        Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_SHORT).show();
+        getData();
+        Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_LONG).show();
       }
     });
   
     btnOff.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
-        sendData("0");
-        Toast.makeText(getBaseContext(), "Turn off LED", Toast.LENGTH_SHORT).show();
+        getData();
+        Toast.makeText(getBaseContext(), "Turn off LED", Toast.LENGTH_LONG).show();
       }
     });
   }
@@ -180,18 +187,54 @@ public class BluetoothTestActivity extends Activity {
   }
   
   public void getData() {
+	  
       byte[] buffer = new byte[1024];  // buffer store for the stream
       int bytes; // bytes returned from read()
-
+      boolean firstInt=true;
+      int dates=0;
+      int recieved=0;
+      sendData("1");
+      
       // Keep listening to the InputStream until an exception occurs
       while (true) {
           try {
+        	  File appfile = new File(this.getFilesDir(), "donneesAppli");
+        		
+        		if (!appfile.exists()) {
+        			appfile.createNewFile();
+        		}
               // Read from the InputStream
-              bytes = inStream.read(buffer);
-              // Send the obtained bytes to the UI activity
-              //TODO
-          } catch (IOException e) {
-        	  Toast.makeText(getApplicationContext(), "Tout reçu", 3).show();
+        	   bytes = inStream.read(buffer);// lance un exception s'il n'y a plus rien à lire
+              if (firstInt) { // réception du nombre total de nouvelles dates
+            	  firstInt=false;
+            	  dates=bytes;
+              }
+              else {
+            	  // Send the obtained bytes to the UI activity
+            	 recieved++; 	
+            	DataOutputStream out =  new DataOutputStream(new FileOutputStream(appfile));
+      			out.writeLong(bytes); // on stocke les nouvelles données
+      			if (out != null)
+      				out.close();
+              }
+              
+          } 
+          
+          catch (IOException e) { // Atteint quand le paquet n'envoie plus rien
+        	  if ((recieved==dates)&&(dates>0)) {
+        		  sendData("0");
+        		  Toast.makeText(getApplicationContext(), "Tout reçu \n ("+dates+" cigarettes fumées)", Toast.LENGTH_LONG).show();
+        	  }
+        	  else {
+        		  if (dates==0) {
+        			  Toast.makeText(getApplicationContext(), "Vous n'avez pas fumé depuis \n la dernière mise à jour", Toast.LENGTH_LONG).show();
+        		  }
+        		  else {
+        			  Toast.makeText(getApplicationContext(), "Pas tout Reçu :(", Toast.LENGTH_LONG).show();
+        		  }
+        	  }
+        	  
+        	  
               break;
               
           }

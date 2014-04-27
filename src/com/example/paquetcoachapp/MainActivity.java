@@ -7,9 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,9 +25,7 @@ import android.view.View;
 public class MainActivity extends Activity {
 	
 	public final static String EXTRA_MESSAGE = "com.example.heloworld.MESSAGE";
-	private static final String TAG = "bluetooth1";
-
-
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

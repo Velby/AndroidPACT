@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;PaquetCoachApp/res/menu/resau.xml&apos; to &apos;reseau.xml&apos;" description="Rename resource &apos;resau.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/menu/resau.xml" name="reseau.xml" stamp="1398939981323" updateReferences="true"/>
+</session>

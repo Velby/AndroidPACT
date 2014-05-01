@@ -1,0 +1,99 @@
+package com.example.paquetcoachapp;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class ParametresReseauActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_parametres_reseau);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.parametres_reseau, menu);
+		return true;
+	}
+	
+public void validerPseudo(View view){
+		
+	
+		
+	
+		if (!(ReseauActivity.settings.getBoolean("PseudoChoisi", false))){
+		
+		EditText tonEdit = (EditText)findViewById(R.id.editText1);
+		String pseudoTape = tonEdit.getText().toString();
+		if(pseudoTape.equals("")){
+			
+			Toast.makeText(this, "Pseudo incorrect", Toast.LENGTH_LONG).show();
+		}
+		else{
+			
+			LienServeurWeb.nouvelUser(pseudoTape, ReseauActivity.settings.getString("IPlocalhost","plop"));
+			ReseauActivity.settings = getPreferences(MODE_WORLD_READABLE);
+			ReseauActivity.editeur = ReseauActivity.settings.edit();
+			ReseauActivity.editeur.putString("PseudoUser", pseudoTape);
+			ReseauActivity.editeur.putBoolean("PseudoChoisi", true);
+			ReseauActivity.editeur.commit();    
+		
+		
+		
+		((EditText) findViewById(R.id.editText1)).setText("");
+		Toast.makeText(this, "Pseudo enregistré !", Toast.LENGTH_LONG).show();
+		}
+		}
+		
+		else{
+			Toast.makeText(this, "Pseudo non modifiable", Toast.LENGTH_LONG).show();
+		}
+		
+	}
+
+public void afficherPseudo(View view){
+	String pseudo = ReseauActivity.settings.getString("PseudoUser","");
+	if(pseudo.equals("")){
+		Toast.makeText(this, "Vous n'avez pas encore de pseudo", Toast.LENGTH_LONG).show();
+	}
+	else{
+		Toast.makeText(this, "Votre pseudo (définitif) : " + pseudo, Toast.LENGTH_LONG).show();
+	}
+	
+}
+
+public void validerIP(View view){
+	
+	
+	EditText tonEdit = (EditText)findViewById(R.id.editText2);
+	String adresseIPstring = tonEdit.getText().toString();
+	
+	ReseauActivity.settings = getPreferences(MODE_WORLD_READABLE);
+	ReseauActivity.editeur = ReseauActivity.settings.edit();
+	ReseauActivity.editeur.putString("IPlocalhost", adresseIPstring);
+	ReseauActivity.editeur.putBoolean("IPChoisie", true);
+	ReseauActivity.editeur.commit();  
+			((EditText) findViewById(R.id.editText2)).setText("");
+			Toast.makeText(this, "IP enregistrée !", Toast.LENGTH_LONG).show();
+			
+		
+}
+
+public void afficherIP(View view){
+	String adresseIP = ReseauActivity.settings.getString("IPlocalhost","");
+	if(adresseIP.equals("")){
+		Toast.makeText(this, "Vous n'avez pas encore rentré d'adresse IP", Toast.LENGTH_LONG).show();
+	}
+	else{
+		Toast.makeText(this, "Adresse IP enregistrée : " + adresseIP , Toast.LENGTH_LONG).show();
+	}
+	
+}
+
+}

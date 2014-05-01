@@ -59,7 +59,7 @@ public class ReseauActivity extends Activity {
 			boolean conditionPseudo = ReseauActivity.settings.getBoolean("PseudoChoisi", false);
 			boolean conditionIP = ReseauActivity.settings.getBoolean("IPChoisie", false);
 			if(conditionPseudo&&conditionIP){
-				LienServeurWeb.
+				
 			//if urlexislts...    A FAIRE
 			
 			Intent intent = new Intent(this, MessagePriveActivity.class);

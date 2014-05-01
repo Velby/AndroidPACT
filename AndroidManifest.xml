@@ -47,8 +47,8 @@
             android:label="@string/title_activity_stats" >
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.ResauActivity"
-            android:label="@string/title_activity_resau" >
+            android:name="com.example.paquetcoachapp.ReseauActivity"
+            android:label="@string/title_activity_reseau" >
         </activity>
         <activity
             android:name="com.example.paquetcoachapp.FakePackActivity"

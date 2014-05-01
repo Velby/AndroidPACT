@@ -39,6 +39,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="168dp"
         android:text="@string/main_bouton_3"
-         android:onClick="open_resau" />
+         android:onClick="open_reseau" />
 
 </RelativeLayout>

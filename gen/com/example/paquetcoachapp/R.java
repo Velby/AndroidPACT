@@ -149,7 +149,7 @@ public final class R {
         public static final int title_activity_fake_pack=0x7f070013;
         public static final int title_activity_figures=0x7f070019;
         public static final int title_activity_parametres=0x7f07001a;
-        public static final int title_activity_resau=0x7f070011;
+        public static final int title_activity_reseau=0x7f070011;
         public static final int title_activity_search=0x7f070007;
         public static final int title_activity_settings=0x7f07001b;
         public static final int title_activity_stat_format=0x7f070018;

@@ -18,7 +18,7 @@
     <string name="main_bouton_3">Résau Social</string>
     <string name="title_activity_conso_en_cours">ConsoEnCours</string>
     <string name="title_activity_stats">Stats</string>
-    <string name="title_activity_resau">Resau</string>
+    <string name="title_activity_reseau">Resau</string>
     <string name="action_refresh">refresh</string>
     <string name="title_activity_fake_pack">FakePack</string>
     <string name="title_activity_fake_date">FakeDate</string>

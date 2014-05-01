@@ -130,8 +130,8 @@ public class MainActivity extends Activity {
 	}
 
 	//méthode pour aller voir le résau social
-	public void open_resau(View view) {
-		Intent intent = new Intent(this, ResauActivity.class);
+	public void open_reseau(View view) {
+		Intent intent = new Intent(this, ReseauActivity.class);
     	startActivity(intent);
 	}
 	

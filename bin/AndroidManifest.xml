@@ -74,6 +74,10 @@
             android:name="com.example.paquetcoachapp.ParametresActivity"
             android:label="@string/title_activity_parametres" >
         </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.ParametresReseauActivity"
+            android:label="@string/title_activity_reseau_parametres" >
+        </activity>
     </application>
 
 </manifest>

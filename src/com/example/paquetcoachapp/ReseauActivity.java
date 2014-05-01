@@ -2,6 +2,7 @@ package com.example.paquetcoachapp;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.Menu;
@@ -12,18 +13,24 @@ import android.widget.Toast;
 public class ReseauActivity extends Activity {
 
 
-	public static SharedPreferences settings;
-	public static SharedPreferences.Editor editeur;
 	
+	private SharedPreferences prefs;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reseau);
+		prefs=this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+		prefs.edit().putBoolean("siPseudoChoisi", false);
+		prefs.edit().putBoolean("siIPChoisie",false);
+		prefs.edit().putString("Pseudo", "");
+		prefs.edit().putString("IP", "");
+		prefs.edit().putString("Encrypt","");
+		prefs.edit().putString("NDecrypt","");
+		prefs.edit().putString("Decrypt","");
+		prefs.edit().putString("NEncrypt","");
+		prefs.edit().commit();
 		
-		settings = getPreferences(MODE_WORLD_READABLE);
-		editeur = settings.edit();
-		editeur.commit();
 	}
 
 	@Override
@@ -56,8 +63,8 @@ public class ReseauActivity extends Activity {
 		}
 		
 		else{
-			boolean conditionPseudo = ReseauActivity.settings.getBoolean("PseudoChoisi", false);
-			boolean conditionIP = ReseauActivity.settings.getBoolean("IPChoisie", false);
+			boolean conditionPseudo = prefs.getBoolean("siPseudoChoisi", false);
+			boolean conditionIP = prefs.getBoolean("siIPChoisie", false);
 			if(conditionPseudo&&conditionIP){
 				
 			//if urlexislts...    A FAIRE

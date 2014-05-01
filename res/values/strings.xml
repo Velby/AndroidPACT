@@ -15,7 +15,7 @@
     <string name="refresh_button">rafraichir</string>
     <string name="main_bouton_1">Suivi</string>
     <string name="main_bouton_2">Statistiques et Conseils</string>
-    <string name="main_bouton_3">Résau Social</string>
+    <string name="main_bouton_3">Réseau Social</string>
     <string name="title_activity_conso_en_cours">ConsoEnCours</string>
     <string name="title_activity_stats">Stats</string>
     <string name="title_activity_reseau">Resau</string>
@@ -28,5 +28,6 @@
     <string name="title_activity_stat_format">StatFormat</string>
     <string name="title_activity_figures">FiguresActivity</string>
     <string name="title_activity_parametres">ParametresActivity</string>
+    <string name="title_activity_reseau_parametres">ParametresReseauSocial</string>
 
 </resources>

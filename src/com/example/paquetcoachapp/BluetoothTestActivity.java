@@ -1,20 +1,15 @@
 package com.example.paquetcoachapp;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.UUID;
-  
-
-  
-
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -60,6 +55,7 @@ public class BluetoothTestActivity extends Activity {
   
     btnOn.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
+        //sendData("1");
         getData();
         Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_LONG).show();
       }
@@ -67,7 +63,7 @@ public class BluetoothTestActivity extends Activity {
   
     btnOff.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
-        getData();
+        sendData("0");
         Toast.makeText(getBaseContext(), "Turn off LED", Toast.LENGTH_LONG).show();
       }
     });
@@ -188,40 +184,49 @@ public class BluetoothTestActivity extends Activity {
   
   public void getData() {
 	  
-      byte[] buffer = new byte[1024];  // buffer store for the stream
-      int bytes; // bytes returned from read()
+      byte[] buffer = new byte[1024];// buffer store for the stream
+      int bytes; // #bytes returned from read()
+      long result=0;
       boolean firstInt=true;
-      int dates=0;
-      int recieved=0;
-      sendData("1");
-      
-      // Keep listening to the InputStream until an exception occurs
-      while (true) {
-          try {
-        	  File appfile = new File(this.getFilesDir(), "donneesAppli");
+      long dates=-1;
+      int received=0;
+      File appfile = new File(this.getFilesDir(), "donneesAppli");
         		
-        		if (!appfile.exists()) {
-        			appfile.createNewFile();
-        		}
-              // Read from the InputStream
-        	   bytes = inStream.read(buffer);// lance un exception s'il n'y a plus rien à lire
-              if (firstInt) { // réception du nombre total de nouvelles dates
-            	  firstInt=false;
-            	  dates=bytes;
-              }
-              else {
-            	  // Send the obtained bytes to the UI activity
-            	 recieved++; 	
-            	DataOutputStream out =  new DataOutputStream(new FileOutputStream(appfile));
-      			out.writeLong(bytes); // on stocke les nouvelles données
-      			if (out != null)
-      				out.close();
-              }
-              
-          } 
+        		
+        sendData("1");
+      // Keep listening to the InputStream until an exception occurs
+      
+          try {
+        	  if (!appfile.exists()) {
+        		  appfile.createNewFile();
+        	  }
+        	  while (result!=-1) {
+        		  // Read from the InputStream
+        		  if (inStream.available()>0)   bytes = inStream.read(buffer);//LECTURE
+        		  else {
+        			  throw new IOException();
+        		  }
+        		  ByteBuffer bBuf= ByteBuffer.wrap(buffer);
+        		  result=bBuf.getLong();
+        		  if (firstInt) { // réception du nombre total de nouvelles dates
+        			  firstInt=false;
+        			  dates=result;
+        		  }
+        		  else {
+        			  if(result!=-1) {
+        				  // Send the obtained bytes to the UI activity
+        				  received++; 	
+        				  DataOutputStream out =  new DataOutputStream(new FileOutputStream(appfile));
+        				  out.writeLong(result); // on stocke les nouvelles données
+        				  if (out != null) out.close();      			
+        			  }
+        			  else throw new IOException();
+        		  }
+        	  } 
+          }
           
           catch (IOException e) { // Atteint quand le paquet n'envoie plus rien
-        	  if ((recieved==dates)&&(dates>0)) {
+        	  if ((received==dates)&&(dates>0)) {
         		  sendData("0");
         		  Toast.makeText(getApplicationContext(), "Tout reçu \n ("+dates+" cigarettes fumées)", Toast.LENGTH_LONG).show();
         	  }
@@ -230,15 +235,13 @@ public class BluetoothTestActivity extends Activity {
         			  Toast.makeText(getApplicationContext(), "Vous n'avez pas fumé depuis \n la dernière mise à jour", Toast.LENGTH_LONG).show();
         		  }
         		  else {
-        			  Toast.makeText(getApplicationContext(), "Pas tout Reçu :(", Toast.LENGTH_LONG).show();
+        			  if (dates>0) Toast.makeText(getApplicationContext(), "Pas tout Reçu :(", Toast.LENGTH_LONG).show();
+        			  else Toast.makeText(getApplicationContext(), "Pas de connexion", Toast.LENGTH_LONG).show();
         		  }
         	  }
-        	  
-        	  
-              break;
               
           }
-      }
+      
   }
 
 }

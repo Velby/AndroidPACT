@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CigDateArray extends ArrayList<CigDate> {
 	private static final long serialVersionUID = 1704573164395748186L;
@@ -55,10 +54,10 @@ public class CigDateArray extends ArrayList<CigDate> {
 		}
 	}
 	
-		public CigDate now() {
+		public CigDate latest() {
 		int n=this.size();
 		if (n>0) return this.get(n-1);
-		else return new CigDate(14,01,01,12,00,00);
+		else return new CigDate();
 	}
 		
 	public CigDateArray() {
@@ -109,12 +108,12 @@ public class CigDateArray extends ArrayList<CigDate> {
 		int smoked=0;
 		int n=this.size() -1;
 		if (n>-1) {
-				CigDate today=this.get(n);
-			CigDate current=this.get(n);
-			while ((n>-1)&&(today.sameDay(this.get(n)))) {
-				current=this.get(n);
+			CigDate today=new CigDate();
+			CigDate current=this.latest();
+			while ((n>-1)&&(current.sameDay(today))) {				
 				smoked=smoked+current.getCigarettes();
 				n--;
+				if (n>-1)current=this.get(n);
 			}	
 		}
 		return smoked;
@@ -131,6 +130,37 @@ public class CigDateArray extends ArrayList<CigDate> {
 			
 		}
 		return smoked;
+	}
+	
+	public double moyenneParJour(int days){
+		CigDate today=new CigDate();
+		CigDate firstDay=today.minusDays(days-1);
+		int n=1; //nombre de jours considérés (au cas où il n'y a pas assez de données)
+		int size=this.size();
+		int j=0;
+		int cigs=0;
+		CigDate currentDay=today;
+		for (int i=size-1;i>-1;i--) {
+			CigDate date=this.get(i);
+			if ((firstDay.compareDate(date)>0)&& !(firstDay.sameDay(date))) break;			
+			cigs+=date.getCigarettes();
+			if (currentDay.compareDate(date)>0) {
+				n=date.joursEntre(today);
+				
+				currentDay=date;
+			}
+			j=i;
+		}
+		if (j==0)return (double) cigs/n;
+		else return (double) cigs/days;
+	}
+	
+	public int allCigs() {
+		int cigs=0;
+		for (CigDate date:this) {
+			cigs+=date.getCigarettes();
+		}
+		return cigs;
 	}
 
 }

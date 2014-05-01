@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.joda.time.DateTime;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -24,7 +22,7 @@ import android.widget.Toast;
 		
 		private ArrayList<Long> conso=new ArrayList<Long>();
 		private CigDateArray consoDates=new CigDateArray();
-		private CigDate date=new CigDate(14,01,01,12,00,00);
+		private CigDate date=new CigDate();
 		private int cigsToday=0;
 		
 		public CigDate getDate() {
@@ -54,10 +52,8 @@ import android.widget.Toast;
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_fake_pack);
-			changerTexte();
 			this.update();
 	    	changerTexte();
-	    	invalidateOptionsMenu();
 		}
 		
 		  public void onResume(Menu menu) {
@@ -99,11 +95,10 @@ import android.widget.Toast;
 						cigsToday=consoDates.cigsToday();
 						changerTexte();
 						}
-					else 
-					{TextView monTexte = (TextView)findViewById(R.id.text_date);
+					else {
+					TextView monTexte = (TextView)findViewById(R.id.text_date);
 					CigDate lastDate= new CigDate(this.conso.get(n));
-					monTexte.setText("PAS CHRONOLOGIQUE. Derniere date: \n"+ lastDate.getHour()+":"+lastDate.getMinute()+"   "
-		        				+lastDate.getDay()+"/"+lastDate.getMonth()+"/"+lastDate.getYear());
+					monTexte.setText("PAS CHRONOLOGIQUE. Derniere date: \n"+lastDate.toStringTime()+"   "+lastDate.toStringDate());
 					
 				}
 			}
@@ -152,7 +147,9 @@ import android.widget.Toast;
 			conso=new ArrayList<Long>();
 			consoDates=new CigDateArray();
 			sendData();
+			date=new CigDate();
 			cigsToday=0;
+			changerTexte();
 			invalidateOptionsMenu();
 			
 		}
@@ -186,11 +183,11 @@ import android.widget.Toast;
 			}
 			consoDates= new CigDateArray(conso);
 			cigsToday=consoDates.cigsToday();
-			date=consoDates.now();
+			date=new CigDate();
 			}
 		
 		public void changerTexte() { //Créé le texte à afficher sur l'activité
-			String text= date.getHour()+":"+date.getMinute()+"   "+date.getDay()+"/"+date.getMonth()+"/"+date.getYear()+"\n"
+			String text= date.toStringTime()+"   "+date.toStringDate()+"\n"
 								+date.getCigarettes()+" cigs";
 			final TextView monTexte = (TextView)findViewById(R.id.text_date);
 			monTexte.setText(text);
@@ -214,27 +211,24 @@ import android.widget.Toast;
 			
 		}
 		
-		private void randomConso(int duree, int moyenne, int ecartType, DateTime start) {// créé une consommation aléatoire sur une durée
+		private void randomConso(int moyenne, int ecartType, CigDate start) {// créé une consommation aléatoire sur une durée
 			clearAll();
+			start.setCigarettes(0);
 			Random randomno = new Random();
+			CigDate now=new CigDate();
+			int duree=start.joursEntre(now)+1;
+			date=start;
 			for (int i=0; i<duree;i++){
-				date=new CigDate(start,0);
-				Double rand=randomno.nextGaussian()*ecartType+moyenne;//nombre aléatoir de cigarettes fumées dans la journée
+				Double rand=randomno.nextGaussian()*ecartType+moyenne;//nombre aléatoire de cigarettes fumées dans la journée
 				for (int j=0;j< rand.intValue() ;j++) smoke(null);
-				start=start.plusDays(1);
-			}		
+				if (i!=duree-1) date=date.plusDays(1);
+			}
+			sendData();
 		}
 		
 		public void randomConsoClick(View v) {
-			randomConso(100,5,4,date.toDateTime());
-		}
-		
-
-
-	
-
-	
-		
+			randomConso(5,4,date);
+		}		
 
 }
 

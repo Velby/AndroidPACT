@@ -26,5 +26,7 @@
     <string name="action_clear_all">Clear All</string>
     <string name="title_activity_bleutooth_test">BleutoothTestActivity</string>
     <string name="title_activity_stat_format">StatFormat</string>
+    <string name="title_activity_figures">FiguresActivity</string>
+    <string name="title_activity_parametres">ParametresActivity</string>
 
 </resources>

@@ -1,15 +1,17 @@
 package com.example.paquetcoachapp;
+import java.util.Calendar;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 public class CigDate {
 
-	private int year=0;
-	private int month=1;
-	private int day=1;
-	private int hour=0;
-	private int minute=0;
-	private int cigarettes=0;
+	private int year;
+	private int month;
+	private int day;
+	private int hour;
+	private int minute;
+	private int cigarettes;
 	
 	public int getCigarettes() {
 		return cigarettes;
@@ -62,13 +64,12 @@ public class CigDate {
 		this.hour= (int) (long) (current/100L);
 		current-= hour*100L;
 		this.minute= (int) (long) (current);
-		this.cigarettes= 1;
-		
+		this.cigarettes= 1;		
 	}
 	
+	
 	public CigDate(int year, int month, int day, int hour, int minute, int cig) {
-		if (year<100) this.year=year;
-		else this.year=year-2000;
+		this.year=year%100;
 		this.month=month;
 		this.day=day;
 		this.hour=hour;
@@ -78,12 +79,22 @@ public class CigDate {
 	}
 	
 	public CigDate(DateTime date,int cigs) {
-		year=date.getYear();
+		year=date.getYear()%100;
 		month=date.getMonthOfYear();
 		day=date.getDayOfMonth();
 		hour=date.getHourOfDay();
 		minute=date.getMinuteOfHour();
 		cigarettes=cigs;
+	}
+	
+	public CigDate() {
+		DateTime date=new DateTime();
+		year=date.getYear()%100;
+		month=date.getMonthOfYear();
+		day=date.getDayOfMonth();
+		hour=date.getHourOfDay();
+		minute=date.getMinuteOfHour();
+		cigarettes=0;
 	}
 	
 	public void smokeUp() { //ajoute une cigarette à la date
@@ -104,26 +115,45 @@ public class CigDate {
 	}
 	
 	public DateTime toDateTime() {
-		return new DateTime(year, month, day, hour, minute);
+		return new DateTime(year+2000, month, day, hour, minute);
 	}
 	
 	public boolean sameDay(CigDate date) {
 		return ((date.getDay()==day)&&(date.getYear()==year)&&(date.getMonth()==month));
 	}
-	public String dayToString() {
-		return ""+day+"/"+month+"/"+year;
-	}
-	public String dateToString() {
-		return ""+day+"/"+month+"/"+year+" à "+hour+":"+minute;
-		
+
+	
+	public int joursEntre(CigDate date) { //renvoie le nombre de jours entre deux dates, peut etre négatif
+		DateTime future = date.toDateTime(); 
+		DateTime present = this.toDateTime();
+		int result=(Days.daysBetween(present,future).getDays());
+		if (this.compareDate(date)<0) return result;
+		else return -result;
 	}
 	
-	public int joursEntre(CigDate date) {
-		DateTime past = new DateTime(2000+ date.getYear(),date.getMonth(),date.getDay(),date.getHour(),date.getMinute()); 
-		DateTime present = new DateTime(2000+ year,month,day,hour,minute);
-		return (Days.daysBetween(present,past).getDays());
+	public String toStringTime() { //renvoie l'heure sous forme 08:03
+		String sHour=hour+"";
+		String sMinute=minute+"";
+		if (hour<10) sHour=0+sHour;
+		if (minute<10) sMinute=0+sMinute;
+		return (sHour+":"+sMinute);
 	}
 	
+	public String toStringDate() { //renvoie l'heure sous forme 08:03
+		String sMonth=month+"";
+		String sDay=day+"";
+		if (day<10) sDay=0+sDay;
+		if (month<10) sMonth=0+sMonth;
+		return (sDay+"/"+sMonth+"/"+year);
+	}
+	
+	public CigDate plusDays(int n) {
+		return new CigDate((this.toDateTime()).plusDays(n),0);
+	}
+	
+	public CigDate minusDays(int n) {
+		return new CigDate((this.toDateTime()).minusDays(n),0);
+	}
 
 	
 

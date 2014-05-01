@@ -66,6 +66,14 @@
             android:name="com.example.paquetcoachapp.StatFormat"
             android:label="@string/title_activity_stat_format" >
         </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.FiguresActivity"
+            android:label="@string/title_activity_figures" >
+        </activity>
+        <activity
+            android:name="com.example.paquetcoachapp.ParametresActivity"
+            android:label="@string/title_activity_parametres" >
+        </activity>
     </application>
 
 </manifest>

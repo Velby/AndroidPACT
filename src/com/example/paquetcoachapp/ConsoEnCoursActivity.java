@@ -1,64 +1,64 @@
 package com.example.paquetcoachapp;
 
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ConsoEnCoursActivity extends Activity {
 	
-	private CigDate today= new CigDate(00,01,01,01,01,01);
-	private CigDateArray cigsToday= new CigDateArray();
+	private CigDate today= new CigDate();
+	CigDate latest;
 	private int smoked=0;
-	private int allowance=12; //nombre de cigarettes autorisé
-	
-	public void setsmoked(int i) {
-		this.smoked=i;
-	}
-	
-	public void setAllowance(int i) {
-		this.allowance=i;
-	}	
-
-	public int getsmoked() {
-		return smoked;
-	}
-
-	public int getAllowance() {
-		return allowance;
-	}
+	private int allowance; //nombre de cigarettes autorisé
+	SharedPreferences prefs; 
+	private int[] choices={-1,0,1,3,5,7,10,15,20,30,40};
 	
 	public void updateList() { //met a jour le arraylist en fonction du fichier en mémoire
 		File appfile = new File(this.getFilesDir(), "donneesAppli");
 		smoked=0;
 		CigDateArray allCigs=new CigDateArray(appfile);
-		CigDateArray result=new CigDateArray();
 		if (allCigs.size()>0){
-			today=allCigs.now();
-			for (CigDate date: allCigs) {
-				if (date.sameDay(today)) {
-					result.add(date);
-					for (int i=0; i<date.getCigarettes();i++) smoked++;
-				}
-			}
-		}
-		else today=new CigDate(2014,01,01,01,01,00);
-		
-		cigsToday=result;		
+			latest=allCigs.latest();
+			if (latest.sameDay(today)) smoked=allCigs.cigsToday();
+		}	
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_conso_en_cours);		
+		setContentView(R.layout.activity_conso_en_cours);
+		prefs=this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 		updateList();
+		allowance = prefs.getInt("allowance", -2);
+		if (allowance==-2) {
+			// 1. Instantiate an AlertDialog.Builder with its constructor
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+			// 2. Chain together various setter methods to set the dialog characteristics
+			builder
+            .setMessage("Vous n'avez pas choisi de Régime")
+            .setCancelable(false)
+            .setPositiveButton("Choisir un régime",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    // if this button is clicked, close
+                    // current activity
+                    changeAllowance();
+                }
+            });
+
+			// 3. Get the AlertDialog from create()
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
 		changerTexte();
 	}
 
@@ -76,29 +76,97 @@ public class ConsoEnCoursActivity extends Activity {
 	}
 
 	public void changerTexte() { //Créé le texte à afficher sur l'activité
-		String texte_pour_conso="";
+		
+		String texteConso="";
 		TextView monTexte = null;
-
-	if (allowance>=0) {
-		if(allowance>=smoked){
-			texte_pour_conso= "Vous avez fumé "+smoked+" cigarettes sur "+allowance+" prévues ajourd'hui\n"+
-					"dernière le "+today.dateToString();
-		}
+		if (latest==null) texteConso="Vous n'avez jamais fumé!";
 		else {
-			texte_pour_conso ="Vous avez fumé "+smoked+" cigarettes sur "+allowance+" prévues ajourd'hui "+
-			"("+today.dayToString()+")"+".\n C'est mal!";
+			if (allowance>=0) {
+				if (smoked>0) {
+					if(allowance>=smoked){
+						texteConso= "Vous avez fumé "+smoked+" cigarettes sur "+allowance+" prévues ajourd'hui\n"+
+						"dernière à "+latest.toStringTime();
+					}
+					else {
+						texteConso ="Vous avez fumé "+smoked+" cigarettes sur "+allowance+" prévues ajourd'hui "+
+								"( Dernière à "+today.toStringTime()+")"+".\n C'est mal!";
+					}
+				}
+				else {
+					texteConso= "Vous n'avez pas fumé aujourd'hui!\n"+
+							"dernière cigarette le "+latest.toStringDate()+" à "+latest.toStringTime();
+				}
+			}
+			else {
+				if (smoked>0) {
+					if(allowance>=smoked){
+						texteConso= "Vous avez fumé "+smoked+" cigarettes ajourd'hui\n"+
+						"dernière à "+latest.toStringTime();
+					}
+					else {
+						texteConso ="Vous avez fumé "+smoked+" cigarettes ajourd'hui "+
+								"( Dernière à "+today.toStringTime()+")"+".\n C'est mal!";
+					}
+				}
+				else {
+					texteConso= "Vous n'avez pas fumé aujourd'hui!\n"+
+							"dernière cigarette le "+latest.toStringDate()+" à "+latest.toStringTime();
+				}
+	
+			}
 		}
-	}
-	else {
-		texte_pour_conso= "Vous avez fumé "+smoked+" cigarettes ajourd'hui "+
-				"("+today.dayToString()+")";
-	}
-
 	monTexte = (TextView)findViewById(R.id.text_conso);
-    monTexte.setText(texte_pour_conso);
+    monTexte.setText(texteConso);
 	}
 	
+	private int choicePicked() {//Pour prédire la case déja cochée dans le dialog de changeAllowance
+		int result=0;
+		for (int i=0;i<11;i++){
+			if (choices[i]==allowance) result=i;
+		}
+		return result;
+	}
+	
+	public void changeAllowance() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setTitle("Quel régime voulez vous suivre?")
+	           .setSingleChoiceItems(new String[] {"Pas de Régime",
+	        		   								"0/jour",
+	        		   								"1/jour",
+	        		   								"3/jour",
+	        		   								"5/jour",
+	        		   								"7/jour",
+	        		   								"10/jour",
+	        		   								"15/jour",
+	        		   								"20/jour",
+	        		   								"30/jour",
+	        		   								"40/jour"},
+	        		   choicePicked(), new DialogInterface.OnClickListener() {
+	        	   			public void onClick(DialogInterface dialog, int which) {
+	        	   				int newAllowance=choices[which];
+	        	   				prefs.edit().putInt("allowance", newAllowance)
+	        	   							.commit();
+	        	   			}
+	           	})
+	    		.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog,int id) {
+	                	allowance=prefs.getInt("allowance", -1);
+	                }
+	             });
+	    if (allowance>-2){
+	    	builder.setCancelable(true);
+	    	builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+	    		public void onCancel(DialogInterface dialog) {
+                	prefs.edit().putInt("allowance", allowance)
+                		.commit();
+                }
+	    	});
+	    }
+	    else
+	    builder.create().show();
+	}
 
 }
+
 
 

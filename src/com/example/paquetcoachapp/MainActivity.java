@@ -7,15 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.UUID;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothSocket;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,16 +22,40 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends Activity {
-	
-	public final static String EXTRA_MESSAGE = "com.example.heloworld.MESSAGE";
+	private SharedPreferences prefs;
+	private int allowance;
+	private int[] choices={-1,0,1,3,5,7,10,15,20,30,40};
+
 	
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {    	
         super.onCreate(savedInstanceState);
+        prefs=this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);//le bouton home fait crasher l'application donc je l'ai désactivé
         refreshData();
+        allowance = prefs.getInt("allowance", -2);
+		if (allowance==-2) {
+			// 1. Instantiate an AlertDialog.Builder with its constructor
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+			// 2. Chain together various setter methods to set the dialog characteristics
+			builder
+            .setMessage("Vous n'avez pas choisi de Régime")
+            .setCancelable(false)
+            .setPositiveButton("Choisir un régime",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    // if this button is clicked, close
+                    // current activity
+                    changeAllowance();
+                }
+            });
+
+			// 3. Get the AlertDialog from create()
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		}
 	 
     }
 
@@ -52,8 +75,7 @@ public class MainActivity extends Activity {
     public void onResume() {
     	super.onResume();
     	this.refreshData();
-    	invalidateOptionsMenu();
-    	
+    	invalidateOptionsMenu();    	
     }
     
  
@@ -62,12 +84,6 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	// Handle presses on the action bar items
     	switch (item.getItemId()) {
-    	case R.id.action_settings:
-    		openSettings();
-    		return true;
-    	case R.id.action_refresh:
-    		refreshData();
-    		return true;
     	case R.id.action_fakePack:
     		openFakePack();
     		return true;
@@ -79,16 +95,6 @@ public class MainActivity extends Activity {
     	}
     }
 
-
-
-	// ouvrir les paramètres
-	private void openSettings() {
-	   	Intent intent = new Intent(this,SettingsActivity.class);
-    	startActivity(intent);
-		
-	}
-
-	
 	//lancer le faux paquet
 	private void openFakePack() {
 	   	Intent intent = new Intent(this, FakePackActivity.class);
@@ -110,14 +116,19 @@ public class MainActivity extends Activity {
     	startActivity(intent);
 	}
 	
+	//méthode pour ouvrir les stats
+		public void open_parametres(View view) {
+			Intent intent = new Intent(this, ParametresActivity.class);
+	    	startActivity(intent);
+		}
+	
 	private void openBlueTooth() {
 		refreshData();
 		Intent intent = new Intent(this, BluetoothTestActivity.class);
     	startActivity(intent);
 	}
 
-		
-		//méthode pour aller voir le résau social
+	//méthode pour aller voir le résau social
 	public void open_resau(View view) {
 		Intent intent = new Intent(this, ResauActivity.class);
     	startActivity(intent);
@@ -164,16 +175,61 @@ public class MainActivity extends Activity {
 	}
 		
 	public String consoText() { //mettre a jour l'affichage dans la barre d'actions
-		int smoked=0;
 		File appfile = new File(this.getFilesDir(), "donneesAppli");
 		CigDateArray allCigs=new CigDateArray(appfile);
-		if (allCigs.size()>0) {
-			smoked= allCigs.cigsToday();
-		}
-		
-		
-		return smoked+"/"+12;
+		int smoked= allCigs.cigsToday();
+		allowance=prefs.getInt("allowance", -2);
+		String allowanceString="";
+		if (allowance!=-1) allowanceString="/"+allowance;
+		return smoked+allowanceString;
 
+	}
+	
+	private int choicePicked() {//Pour prédire la case déja cochée dans le dialog de changeAllowance
+		int result=0;
+		for (int i=0;i<11;i++){
+			if (choices[i]==allowance) result=i;
+		}
+		return result;
+	}
+	
+	public void changeAllowance() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setTitle("Quel régime voulez vous suivre?")
+	           .setSingleChoiceItems(new String[] {"Pas de Régime",
+	        		   								"0/jour",
+	        		   								"1/jour",
+	        		   								"3/jour",
+	        		   								"5/jour",
+	        		   								"7/jour",
+	        		   								"10/jour",
+	        		   								"15/jour",
+	        		   								"20/jour",
+	        		   								"30/jour",
+	        		   								"40/jour"},
+	        		   choicePicked(), new DialogInterface.OnClickListener() {
+	        	   			public void onClick(DialogInterface dialog, int which) {
+	        	   				int newAllowance=choices[which];
+	        	   				prefs.edit().putInt("allowance", newAllowance)
+	        	   							.commit();
+	        	   			}
+	           	})
+	    		.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog,int id) {
+	                	allowance=prefs.getInt("allowance", -1);
+	                }
+	             });
+	    if (allowance>-2){
+	    	builder.setCancelable(true);
+	    	builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+	    		public void onCancel(DialogInterface dialog) {
+                	prefs.edit().putInt("allowance", allowance)
+                		.commit();
+                }
+	    	});
+	    }
+	    else builder.setCancelable(false);
+	    builder.create().show();
 	}
 	
  

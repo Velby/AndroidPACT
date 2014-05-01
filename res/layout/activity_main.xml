@@ -16,8 +16,8 @@
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
-        android:text="@string/main_bouton_1"
-         android:onClick="open_conso" />
+        android:text="Paramètres"
+         android:onClick="open_parametres" />
 
     <!--  stats -->
     <Button

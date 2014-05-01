@@ -2,13 +2,6 @@ package com.example.paquetcoachapp;
 
 import java.io.File;
 import java.util.ArrayList;
-
-
-
-
-
-
-
 import com.androidplot.xy.*;
 
 import android.os.Bundle;
@@ -17,11 +10,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Switch;
 
 public class StatsActivity extends Activity {
 	
@@ -38,7 +28,6 @@ public class StatsActivity extends Activity {
 		seekBar.setOnSeekBarChangeListener(
 
                 new OnSeekBarChangeListener() {
-                	int progress = 0;
                 	@Override
                 	public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) { 
                 		refreshData();
@@ -75,15 +64,13 @@ public class StatsActivity extends Activity {
 	public void refreshData() {
 		File appfile = new File(this.getFilesDir(), "donneesAppli");
 		allData=new CigDateArray(appfile);
-		if (allData.size()>0){
-			today=allData.now();
-		}
-		else today=new CigDate(2014,01,01,01,01,00);		
+		today=new CigDate();
+		
 	}
 	
 	public SimpleXYSeries derniersJours(int n) {
 		int current = 0;
-		CigDate currentDate= today;
+		CigDate currentDate= allData.latest();
 		int joursDepuis=0;
 		int[] days=new int[n];
 		int[] cigs=new int[n];
@@ -113,8 +100,8 @@ public class StatsActivity extends Activity {
 	
 	public SimpleXYSeries aujourdhui() {
 		int current=0;//nombre de dates vues
-		CigDate currentTime= today;
-		int n=today.getHour()+1;
+		CigDate currentTime= allData.latest();
+		int n=currentTime.getHour()+1;
 		int[] hours=new int[n];
 		int[] cigs=new int[n];
 		for (int i=0; i<n; i++) {
@@ -124,7 +111,7 @@ public class StatsActivity extends Activity {
 		while (currentTime.sameDay(today)) {
 			cigs[currentTime.getHour()]+=currentTime.getCigarettes();	
 			current++;
-			if (current >= allData.size()) currentTime.setYear(0);
+			if (current >= allData.size()) break;
 			else {
 				currentTime=allData.getEnd(current);
 			}
@@ -174,5 +161,10 @@ public class StatsActivity extends Activity {
         
         plot.redraw();
         plot.invalidate();
+	}
+	
+	public void openFiguresActivity(View v) {
+		Intent intent = new Intent(this, FiguresActivity.class);
+    	startActivity(intent);
 	}
 }

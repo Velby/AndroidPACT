@@ -45,4 +45,13 @@
         android:max="10"
         android:progress="0" />
 
+    <Button
+        android:id="@+id/figures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Stats"
+        android:onClick="openFiguresActivity" />
+
 </RelativeLayout>

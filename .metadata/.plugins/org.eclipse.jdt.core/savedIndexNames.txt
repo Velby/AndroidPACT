@@ -3,7 +3,6 @@ INDEX VERSION 1.126+C:\Users\Quentin\pact-android\.metadata\.plugins\org.eclipse
 4280608714.index
 3287150766.index
 3974860173.index
-1978462209.index
 2113257301.index
 3674644715.index
 2044917199.index

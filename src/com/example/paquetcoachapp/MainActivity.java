@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
                     // if this button is clicked, close
                     // current activity
                     changeAllowance();
+                    invalidateOptionsMenu();
                 }
             });
 

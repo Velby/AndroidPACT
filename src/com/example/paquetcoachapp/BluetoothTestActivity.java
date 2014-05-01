@@ -57,14 +57,12 @@ public class BluetoothTestActivity extends Activity {
       public void onClick(View v) {
         //sendData("1");
         getData();
-        Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_LONG).show();
       }
     });
   
     btnOff.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
         sendData("0");
-        Toast.makeText(getBaseContext(), "Turn off LED", Toast.LENGTH_LONG).show();
       }
     });
   }
@@ -185,63 +183,76 @@ public class BluetoothTestActivity extends Activity {
   public void getData() {
 	  
       byte[] buffer = new byte[1024];// buffer store for the stream
-      int bytes; // #bytes returned from read()
+      int bytes=-1; // #bytes returned from read()
       long result=0;
-      boolean firstInt=true;
-      long dates=-1;
-      int received=0;
-      File appfile = new File(this.getFilesDir(), "donneesAppli");
-        		
+      String stringLong="";
+      File appfile = new File(this.getFilesDir(), "donneesPack");
+       		
         		
         sendData("1");
       // Keep listening to the InputStream until an exception occurs
       
           try {
+              DataOutputStream out =  new DataOutputStream(new FileOutputStream(appfile));
         	  if (!appfile.exists()) {
         		  appfile.createNewFile();
         	  }
-        	  while (result!=-1) {
         		  // Read from the InputStream
         		  if (inStream.available()>0)   bytes = inStream.read(buffer);//LECTURE
         		  else {
+        			  out.close();
         			  throw new IOException();
         		  }
-        		  ByteBuffer bBuf= ByteBuffer.wrap(buffer);
-        		  result=bBuf.getLong();
-        		  if (firstInt) { // réception du nombre total de nouvelles dates
-        			  firstInt=false;
-        			  dates=result;
-        		  }
-        		  else {
-        			  if(result!=-1) {
-        				  // Send the obtained bytes to the UI activity
-        				  received++; 	
-        				  DataOutputStream out =  new DataOutputStream(new FileOutputStream(appfile));
-        				  out.writeLong(result); // on stocke les nouvelles données
-        				  if (out != null) out.close();      			
+        		  
+        		  for (int i=0;i<(bytes-1);i++) {
+        			  
+        			  if (i%10==0 && i>0) {
+        				  result= Long.valueOf(stringLong);
+        				  out.writeLong(result); // on stocke les nouvelles données  
+        				  stringLong= "";        				  
         			  }
-        			  else throw new IOException();
-        		  }
-        	  } 
+        			  stringLong=stringLong+Character.toString((char) buffer[i]);
+      				
+      			}
+        		 sendData("0");
+        		 Toast.makeText(getApplicationContext(), "Tout reçu \n ("+(bytes-2)/10+" cigarettes fumées)", Toast.LENGTH_LONG).show();
+        		 out.close();
           }
           
-          catch (IOException e) { // Atteint quand le paquet n'envoie plus rien
-        	  if ((received==dates)&&(dates>0)) {
-        		  sendData("0");
-        		  Toast.makeText(getApplicationContext(), "Tout reçu \n ("+dates+" cigarettes fumées)", Toast.LENGTH_LONG).show();
-        	  }
-        	  else {
-        		  if (dates==0) {
-        			  Toast.makeText(getApplicationContext(), "Vous n'avez pas fumé depuis \n la dernière mise à jour", Toast.LENGTH_LONG).show();
-        		  }
-        		  else {
-        			  if (dates>0) Toast.makeText(getApplicationContext(), "Pas tout Reçu :(", Toast.LENGTH_LONG).show();
-        			  else Toast.makeText(getApplicationContext(), "Pas de connexion", Toast.LENGTH_LONG).show();
-        		  }
-        	  }
-              
+          catch (IOException e) { // Atteint quand le paquet n'envoie rien
+        		Toast.makeText(getApplicationContext(), "Pas de connexion", Toast.LENGTH_LONG).show();  
           }
-      
+  }
+  
+  public void testToast(){
+	  byte[] buffer = new byte[1024];// buffer store for the stream
+      int bytes; // #bytes returned from read()
+      long result=0;
+      String stringLong="";
+       sendData("1");
+       try {
+		if (inStream.available()>0)   {
+			bytes = inStream.read(buffer);
+			for (int i=0;i<bytes;i++) {
+				stringLong=stringLong+Character.toString((char) buffer[i]);
+			}
+			//stringLong= new String(buffer,"US-ACII");
+			try{
+				result= Long.valueOf(stringLong);
+			} catch (NumberFormatException e) {
+				Toast.makeText(getApplicationContext(), "reçu truc chelou: "+result+"\n total "+bytes+"bytes", Toast.LENGTH_LONG).show();
+			}		
+			
+		  Toast.makeText(getApplicationContext(), "reçu "+result+"\n total "+bytes+"bytes", Toast.LENGTH_LONG).show();
+		}
+		else {
+			Toast.makeText(getApplicationContext(), "Pas de connexion", Toast.LENGTH_LONG).show();
+		}
+	} catch (IOException e) {
+		Toast.makeText(getApplicationContext(), "Pas de connexion", Toast.LENGTH_LONG).show();
+	}
+       
+     
   }
 
 }

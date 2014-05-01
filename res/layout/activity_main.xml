@@ -24,7 +24,9 @@
         android:layout_marginBottom="20dp"
         android:onClick="open_parametres"
         android:background="@drawable/cigarette"
-        android:text="Paramètres" />
+        android:text="Paramètres" 
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/bouton_stats"
@@ -35,7 +37,9 @@
         android:layout_marginTop="81dp"
         android:onClick="open_stats"
         android:background="@drawable/cigarette"
-        android:text="Graphique et Statistiques" />
+        android:text="Graphique et Statistiques" 
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/bouton_reseau"
@@ -47,7 +51,8 @@
         android:onClick="open_reseau"
         android:background="@drawable/cigarette"
         android:text="Réseau Social" 
-        android:textcolor="#000000"/>
+        android:textColor="#000000"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/bouton_bluetooth"
@@ -58,6 +63,8 @@
         android:layout_marginTop="22dp"
         android:onClick="openBlueTooth"
         android:background="@drawable/cigarette"
-        android:text="Synchronisation Avec le Paquet" />
+        android:text="Synchronisation Avec le Paquet"
+        android:textColor="#000000"
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -38,34 +38,40 @@ public final class R {
         public static final int ic_smoke=0x7f020000;
     }
     public static final class id {
-        public static final int NumberPicker1=0x7f0a0013;
-        public static final int NumberPicker2=0x7f0a0015;
-        public static final int NumberPicker3=0x7f0a0014;
-        public static final int action_back=0x7f0a0018;
-        public static final int action_bluetooth=0x7f0a001a;
-        public static final int action_clear_all=0x7f0a0019;
-        public static final int action_fakePack=0x7f0a001b;
-        public static final int action_settings=0x7f0a0017;
+        public static final int NumberPicker1=0x7f0a0019;
+        public static final int NumberPicker2=0x7f0a001b;
+        public static final int NumberPicker3=0x7f0a001a;
+        public static final int action_back=0x7f0a001e;
+        public static final int action_bluetooth=0x7f0a0020;
+        public static final int action_clear_all=0x7f0a001f;
+        public static final int action_fakePack=0x7f0a0021;
+        public static final int action_settings=0x7f0a001d;
         public static final int analogClock1=0x7f0a0004;
         public static final int btnOff=0x7f0a0002;
         public static final int btnOn=0x7f0a0001;
         public static final int button1=0x7f0a0003;
+        public static final int button2=0x7f0a0012;
         public static final int button3=0x7f0a000e;
         public static final int button4=0x7f0a000d;
         public static final int changeDateButton=0x7f0a0007;
         public static final int changeTimeButton=0x7f0a0006;
-        public static final int credits=0x7f0a0016;
-        public static final int edit_message=0x7f0a000f;
-        public static final int figures=0x7f0a0012;
+        public static final int credits=0x7f0a001c;
+        public static final int editText1=0x7f0a0011;
+        public static final int editText2=0x7f0a0013;
+        public static final int edit_message=0x7f0a0015;
+        public static final int figures=0x7f0a0018;
         public static final int list=0x7f0a000c;
-        public static final int mySimpleXYPlot=0x7f0a0010;
+        public static final int mySimpleXYPlot=0x7f0a0016;
         public static final int randomSmokesButton=0x7f0a000a;
-        public static final int seekBar1=0x7f0a0011;
+        public static final int seekBar1=0x7f0a0017;
         public static final int sendButton=0x7f0a0008;
         public static final int smokeButton=0x7f0a0009;
+        public static final int textView1=0x7f0a0010;
+        public static final int textView2=0x7f0a000f;
         public static final int text_conso=0x7f0a0005;
         public static final int text_date=0x7f0a000b;
         public static final int txtArduino=0x7f0a0000;
+        public static final int webView1=0x7f0a0014;
     }
     public static final class layout {
         public static final int activity_bluetooth_test=0x7f030000;
@@ -73,11 +79,14 @@ public final class R {
         public static final int activity_fake_pack=0x7f030002;
         public static final int activity_figures=0x7f030003;
         public static final int activity_main=0x7f030004;
-        public static final int activity_parametres=0x7f030005;
-        public static final int activity_resau=0x7f030006;
-        public static final int activity_search=0x7f030007;
-        public static final int activity_stats=0x7f030008;
-        public static final int price_picker=0x7f030009;
+        public static final int activity_message_prive=0x7f030005;
+        public static final int activity_parametres=0x7f030006;
+        public static final int activity_parametres_reseau=0x7f030007;
+        public static final int activity_resau=0x7f030008;
+        public static final int activity_reseau=0x7f030009;
+        public static final int activity_search=0x7f03000a;
+        public static final int activity_stats=0x7f03000b;
+        public static final int price_picker=0x7f03000c;
     }
     public static final class menu {
         public static final int basic_action_bar=0x7f090000;
@@ -87,11 +96,14 @@ public final class R {
         public static final int fake_pack=0x7f090004;
         public static final int figures=0x7f090005;
         public static final int main_activity_action_bar=0x7f090006;
-        public static final int parametres=0x7f090007;
-        public static final int resau=0x7f090008;
-        public static final int search=0x7f090009;
-        public static final int stat_format=0x7f09000a;
-        public static final int stats=0x7f09000b;
+        public static final int message_prive=0x7f090007;
+        public static final int parametres=0x7f090008;
+        public static final int parametres_reseau=0x7f090009;
+        public static final int resau=0x7f09000a;
+        public static final int reseau=0x7f09000b;
+        public static final int search=0x7f09000c;
+        public static final int stat_format=0x7f09000d;
+        public static final int stats=0x7f09000e;
     }
     public static final class string {
         public static final int action_back=0x7f070005;

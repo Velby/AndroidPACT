@@ -1,0 +1,48 @@
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content">
+
+  <LinearLayout
+      
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content" 
+      android:orientation="vertical">
+	  	
+<TextView
+          android:id="@+id/textView2"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          android:gravity="center_horizontal"
+          
+           />
+      
+      <TextView
+          android:id="@+id/textView1"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"
+          
+           />
+       <EditText
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:hint="tapez ici pour répondre"
+        android:inputType="text"
+        android:text="" />
+      
+      <Button 
+        android:id="@+id/button3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="envoyer (ou actualiser si EditText vide)"
+        android:onClick="envoyerMessage"
+          />
+     
+      
+  </LinearLayout>
+
+</ScrollView>

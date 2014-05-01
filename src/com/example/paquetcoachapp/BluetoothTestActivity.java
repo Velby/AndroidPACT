@@ -26,8 +26,7 @@ import android.widget.Toast;
   
 public class BluetoothTestActivity extends Activity {
   private static final String TAG = "bluetooth1";
-    
-  Button btnOn, btnOff;
+
     
   private BluetoothAdapter btAdapter = null;
   private BluetoothSocket btSocket = null;
@@ -46,25 +45,10 @@ public class BluetoothTestActivity extends Activity {
     super.onCreate(savedInstanceState);
   
     setContentView(R.layout.activity_bluetooth_test);
-  
-    btnOn = (Button) findViewById(R.id.btnOn);
-    btnOff = (Button) findViewById(R.id.btnOff);
       
     btAdapter = BluetoothAdapter.getDefaultAdapter();
     checkBTState();
-  
-    btnOn.setOnClickListener(new OnClickListener() {
-      public void onClick(View v) {
-        //sendData("1");
-        getData();
-      }
-    });
-  
-    btnOff.setOnClickListener(new OnClickListener() {
-      public void onClick(View v) {
-        sendData("0");
-      }
-    });
+
   }
    
   private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
@@ -118,6 +102,8 @@ public class BluetoothTestActivity extends Activity {
     } catch (IOException e) {
       errorExit("Fatal Error", "In onResume() and output stream creation failed:" + e.getMessage() + ".");
     }
+    
+    sendData("1");
   }
   
   @Override
@@ -159,7 +145,7 @@ public class BluetoothTestActivity extends Activity {
   
   private void errorExit(String title, String message){
     Toast.makeText(getBaseContext(), title + " - " + message, Toast.LENGTH_LONG).show();
-    finish();
+    //finish();
   }
   
   private void sendData(String message) {
@@ -180,7 +166,7 @@ public class BluetoothTestActivity extends Activity {
     }
   }
   
-  public void getData() {
+  public void getData(View v) {
 	  
       byte[] buffer = new byte[1024];// buffer store for the stream
       int bytes=-1; // #bytes returned from read()

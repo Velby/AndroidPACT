@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_smoke"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="com.example.paquetcoachapp.MainActivity"
             android:label="@string/app_name" >
@@ -27,20 +27,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.paquetcoachapp.SearchActivity"
-            android:label="@string/title_activity_search" >
-        </activity>
-        <activity
-            android:name="com.example.paquetcoachapp.DisplayMessageActivity"
-            android:label="@string/title_display_message_activity" >
-        </activity>
-        <activity
             android:name="com.example.paquetcoachapp.SettingsActivity"
             android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name="com.example.paquetcoachapp.ConsoEnCoursActivity"
-            android:label="@string/title_activity_conso_en_cours" >
         </activity>
         <activity
             android:name="com.example.paquetcoachapp.StatsActivity"

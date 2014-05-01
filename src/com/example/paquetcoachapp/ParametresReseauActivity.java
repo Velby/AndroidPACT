@@ -89,10 +89,10 @@ public void validerIP(View view){
 	String adresseIPstring = tonEdit.getText().toString();
 	
 
-	prefs.edit().putString("IP", adresseIPstring);
-	prefs.edit().commit();  
-	prefs.edit().putBoolean("siIPChoisie", true);
-	prefs.edit().commit();  
+	prefs.edit().putString("IP", adresseIPstring)
+				.commit();  
+	prefs.edit().putBoolean("siIPChoisie", true)
+				.commit();  
 			((EditText) findViewById(R.id.editText2)).setText("");
 			Toast.makeText(this, "IP enregistrée !", Toast.LENGTH_LONG).show();
 			

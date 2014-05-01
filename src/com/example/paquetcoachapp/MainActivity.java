@@ -88,9 +88,6 @@ public class MainActivity extends Activity {
     	case R.id.action_fakePack:
     		openFakePack();
     		return true;
-    	case R.id.action_bluetooth:
-    		openBlueTooth();
-    		return true;
     	default:
     		return super.onOptionsItemSelected(item);
     	}
@@ -123,7 +120,7 @@ public class MainActivity extends Activity {
 	    	startActivity(intent);
 		}
 	
-	private void openBlueTooth() {
+	public void openBlueTooth(View v) {
 		refreshData();
 		Intent intent = new Intent(this, BluetoothTestActivity.class);
     	startActivity(intent);

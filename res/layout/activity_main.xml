@@ -6,39 +6,58 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@drawable/main_background" >
 
      <!--  suivi conso -->
-    <Button 
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:text="Paramètres"
-         android:onClick="open_parametres" />
 
     <!--  stats -->
-    <Button
-        android:id="@+id/button3" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
-        android:text="@string/main_bouton_2"
-        android:onClick="open_stats" />
 
 	<!--  réseau -->
+
     <Button
-        android:id="@+id/button1" 
-        android:layout_width="wrap_content"
+        android:id="@+id/bouton_parametres"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bouton_reseau"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:onClick="open_parametres"
+        android:background="@drawable/cigarette"
+        android:text="Paramètres" />
+
+    <Button
+        android:id="@+id/bouton_stats"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bouton_reseau"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="81dp"
+        android:onClick="open_stats"
+        android:background="@drawable/cigarette"
+        android:text="Graphique et Statistiques" />
+
+    <Button
+        android:id="@+id/bouton_reseau"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bouton_stats"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="168dp"
-        android:text="@string/main_bouton_3"
-         android:onClick="open_reseau" />
+        android:layout_marginTop="17dp"
+        android:onClick="open_reseau"
+        android:background="@drawable/cigarette"
+        android:text="Réseau Social" 
+        android:textcolor="#000000"/>
+
+    <Button
+        android:id="@+id/bouton_bluetooth"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bouton_reseau"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:onClick="openBlueTooth"
+        android:background="@drawable/cigarette"
+        android:text="Synchronisation Avec le Paquet" />
 
 </RelativeLayout>

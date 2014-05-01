@@ -35,43 +35,49 @@ public final class R {
         public static final int title_font_size=0x7f060003;
     }
     public static final class drawable {
-        public static final int ic_smoke=0x7f020000;
+        public static final int arrows=0x7f020000;
+        public static final int btlogo=0x7f020001;
+        public static final int cigarette=0x7f020002;
+        public static final int ic_smoke=0x7f020003;
+        public static final int main_background=0x7f020004;
     }
     public static final class id {
-        public static final int NumberPicker1=0x7f0a0019;
-        public static final int NumberPicker2=0x7f0a001b;
-        public static final int NumberPicker3=0x7f0a001a;
-        public static final int action_back=0x7f0a001e;
-        public static final int action_bluetooth=0x7f0a0020;
-        public static final int action_clear_all=0x7f0a001f;
-        public static final int action_fakePack=0x7f0a0021;
-        public static final int action_settings=0x7f0a001d;
-        public static final int analogClock1=0x7f0a0004;
-        public static final int btnOff=0x7f0a0002;
-        public static final int btnOn=0x7f0a0001;
-        public static final int button1=0x7f0a0003;
-        public static final int button2=0x7f0a0012;
-        public static final int button3=0x7f0a000e;
-        public static final int button4=0x7f0a000d;
-        public static final int changeDateButton=0x7f0a0007;
-        public static final int changeTimeButton=0x7f0a0006;
-        public static final int credits=0x7f0a001c;
-        public static final int editText1=0x7f0a0011;
-        public static final int editText2=0x7f0a0013;
-        public static final int edit_message=0x7f0a0015;
-        public static final int figures=0x7f0a0018;
-        public static final int list=0x7f0a000c;
-        public static final int mySimpleXYPlot=0x7f0a0016;
-        public static final int randomSmokesButton=0x7f0a000a;
-        public static final int seekBar1=0x7f0a0017;
-        public static final int sendButton=0x7f0a0008;
-        public static final int smokeButton=0x7f0a0009;
-        public static final int textView1=0x7f0a0010;
-        public static final int textView2=0x7f0a000f;
-        public static final int text_conso=0x7f0a0005;
-        public static final int text_date=0x7f0a000b;
-        public static final int txtArduino=0x7f0a0000;
-        public static final int webView1=0x7f0a0014;
+        public static final int NumberPicker1=0x7f0a001b;
+        public static final int NumberPicker2=0x7f0a001d;
+        public static final int NumberPicker3=0x7f0a001c;
+        public static final int action_back=0x7f0a0020;
+        public static final int action_bluetooth=0x7f0a0022;
+        public static final int action_clear_all=0x7f0a0021;
+        public static final int action_fakePack=0x7f0a0023;
+        public static final int action_settings=0x7f0a001f;
+        public static final int analogClock1=0x7f0a0001;
+        public static final int bouton_bluetooth=0x7f0a000d;
+        public static final int bouton_parametres=0x7f0a000a;
+        public static final int bouton_reseau=0x7f0a000b;
+        public static final int bouton_stats=0x7f0a000c;
+        public static final int btnOn=0x7f0a0000;
+        public static final int button1=0x7f0a0012;
+        public static final int button2=0x7f0a0013;
+        public static final int button3=0x7f0a0011;
+        public static final int button4=0x7f0a0015;
+        public static final int changeDateButton=0x7f0a0004;
+        public static final int changeTimeButton=0x7f0a0003;
+        public static final int credits=0x7f0a001e;
+        public static final int editText1=0x7f0a0010;
+        public static final int editText2=0x7f0a0014;
+        public static final int edit_message=0x7f0a0017;
+        public static final int figures=0x7f0a001a;
+        public static final int list=0x7f0a0009;
+        public static final int mySimpleXYPlot=0x7f0a0018;
+        public static final int randomSmokesButton=0x7f0a0007;
+        public static final int seekBar1=0x7f0a0019;
+        public static final int sendButton=0x7f0a0005;
+        public static final int smokeButton=0x7f0a0006;
+        public static final int textView1=0x7f0a000f;
+        public static final int textView2=0x7f0a000e;
+        public static final int text_conso=0x7f0a0002;
+        public static final int text_date=0x7f0a0008;
+        public static final int webView1=0x7f0a0016;
     }
     public static final class layout {
         public static final int activity_bluetooth_test=0x7f030000;
@@ -105,56 +111,52 @@ public final class R {
         public static final int stats=0x7f09000d;
     }
     public static final class string {
-        public static final int action_back=0x7f070005;
-        public static final int action_clear_all=0x7f070016;
-        public static final int action_fakePack=0x7f070015;
-        public static final int action_refresh=0x7f070012;
-        public static final int action_search=0x7f070004;
+        public static final int action_back=0x7f070004;
+        public static final int action_clear_all=0x7f070012;
+        public static final int action_fakePack=0x7f070011;
+        public static final int action_refresh=0x7f07000e;
+        public static final int action_search=0x7f070003;
         public static final int action_settings=0x7f070001;
         public static final int app_name=0x7f070000;
-        public static final int button_send=0x7f070008;
-        public static final int credits=0x7f07000a;
+        public static final int button_send=0x7f070006;
+        public static final int credits=0x7f070007;
         public static final int edit_message=0x7f070002;
-        public static final int hello_world=0x7f070006;
-        public static final int main_bouton_1=0x7f07000c;
-        public static final int main_bouton_2=0x7f07000d;
-        public static final int main_bouton_3=0x7f07000e;
-        public static final int pref_default_display_name=0x7f070021;
-        public static final int pref_description_social_recommendations=0x7f07001f;
+        public static final int hello_world=0x7f070005;
+        public static final int main_bouton_1=0x7f070009;
+        public static final int main_bouton_2=0x7f07000a;
+        public static final int main_bouton_3=0x7f07000b;
+        public static final int pref_default_display_name=0x7f07001d;
+        public static final int pref_description_social_recommendations=0x7f07001b;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f070023;
+        public static final int pref_header_data_sync=0x7f07001f;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f07001d;
+        public static final int pref_header_general=0x7f070019;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f070026;
-        public static final int pref_ringtone_silent=0x7f070029;
-        public static final int pref_title_add_friends_to_messages=0x7f070022;
-        public static final int pref_title_display_name=0x7f070020;
-        public static final int pref_title_new_message_notifications=0x7f070027;
-        public static final int pref_title_ringtone=0x7f070028;
-        public static final int pref_title_social_recommendations=0x7f07001e;
-        public static final int pref_title_sync_frequency=0x7f070024;
-        public static final int pref_title_system_sync_settings=0x7f070025;
-        public static final int pref_title_vibrate=0x7f07002a;
-        public static final int refresh_button=0x7f07000b;
-        public static final int title_activity_bleutooth_test=0x7f070017;
-        public static final int title_activity_conso_en_cours=0x7f07000f;
-        public static final int title_activity_display_message=0x7f070003;
-        public static final int title_activity_fake_date=0x7f070014;
-        public static final int title_activity_fake_pack=0x7f070013;
-        public static final int title_activity_figures=0x7f070019;
-        public static final int title_activity_parametres=0x7f07001a;
-        public static final int title_activity_reseau=0x7f070011;
-        public static final int title_activity_reseau_parametres=0x7f07001b;
-        public static final int title_activity_search=0x7f070007;
-        public static final int title_activity_settings=0x7f07001c;
-        public static final int title_activity_stat_format=0x7f070018;
-        public static final int title_activity_stats=0x7f070010;
-        public static final int title_display_message_activity=0x7f070009;
+        public static final int pref_header_notifications=0x7f070022;
+        public static final int pref_ringtone_silent=0x7f070025;
+        public static final int pref_title_add_friends_to_messages=0x7f07001e;
+        public static final int pref_title_display_name=0x7f07001c;
+        public static final int pref_title_new_message_notifications=0x7f070023;
+        public static final int pref_title_ringtone=0x7f070024;
+        public static final int pref_title_social_recommendations=0x7f07001a;
+        public static final int pref_title_sync_frequency=0x7f070020;
+        public static final int pref_title_system_sync_settings=0x7f070021;
+        public static final int pref_title_vibrate=0x7f070026;
+        public static final int refresh_button=0x7f070008;
+        public static final int title_activity_bleutooth_test=0x7f070013;
+        public static final int title_activity_fake_date=0x7f070010;
+        public static final int title_activity_fake_pack=0x7f07000f;
+        public static final int title_activity_figures=0x7f070015;
+        public static final int title_activity_parametres=0x7f070016;
+        public static final int title_activity_reseau=0x7f07000d;
+        public static final int title_activity_reseau_parametres=0x7f070017;
+        public static final int title_activity_settings=0x7f070018;
+        public static final int title_activity_stat_format=0x7f070014;
+        public static final int title_activity_stats=0x7f07000c;
     }
     public static final class style {
         /** 

@@ -99,11 +99,10 @@ public final class R {
         public static final int message_prive=0x7f090007;
         public static final int parametres=0x7f090008;
         public static final int parametres_reseau=0x7f090009;
-        public static final int resau=0x7f09000a;
-        public static final int reseau=0x7f09000b;
-        public static final int search=0x7f09000c;
-        public static final int stat_format=0x7f09000d;
-        public static final int stats=0x7f09000e;
+        public static final int reseau=0x7f09000a;
+        public static final int search=0x7f09000b;
+        public static final int stat_format=0x7f09000c;
+        public static final int stats=0x7f09000d;
     }
     public static final class string {
         public static final int action_back=0x7f070005;

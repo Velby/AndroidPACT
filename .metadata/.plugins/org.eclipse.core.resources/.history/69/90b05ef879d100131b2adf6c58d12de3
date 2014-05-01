@@ -18,15 +18,6 @@ public class ParametresReseauActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_parametres_reseau);
 		prefs=this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-		prefs.edit().putBoolean("siPseudoChoisi", false);
-		prefs.edit().putBoolean("siIPChoisie",false);
-		prefs.edit().putString("Pseudo", "");
-		prefs.edit().putString("IP", "");
-		prefs.edit().putString("Encrypt","");
-		prefs.edit().putString("NDecrypt","");
-		prefs.edit().putString("Decrypt","");
-		prefs.edit().putString("NEncrypt","");
-		prefs.edit().commit();
 	}
 
 	@Override
@@ -54,7 +45,6 @@ public void validerPseudo(View view){
 			LienServeurWeb.nouvelUser(pseudoTape, prefs.getString("IP",""));
 			
 			prefs.edit().putString("Pseudo", pseudoTape);
-			prefs.edit().commit();  
 			prefs.edit().putBoolean("siPseudoChoisi", true);
 			prefs.edit().commit();    
 		
@@ -102,8 +92,7 @@ public void validerIP(View view){
 public void afficherIP(View view){
 	String adresseIP = prefs.getString("IP","");
 	if(adresseIP.equals("")){
-		String bonbon = prefs.getString("IP", "pi");
-		Toast.makeText(this, bonbon, Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Vous n'avez pas encore rentré d'adresse IP", Toast.LENGTH_LONG).show();
 	}
 	else{
 		Toast.makeText(this, "Adresse IP enregistrée : " + adresseIP , Toast.LENGTH_LONG).show();

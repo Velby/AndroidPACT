@@ -31,7 +31,7 @@ public class LienServeurWeb {
 		}
 	}
 	
-	 public static String getCles(String User, String IP){//on s'en sert qu'une seule fois
+	 public static void getCles(String User, String IP){//on s'en sert qu'une seule fois
          BigInteger[] cles = new BigInteger[2];
          String urlCle = "http://" + IP + "/secu/getCle.php?user=" + User;
          String eatn = (LienServeurWeb.getCode(urlCle)).get(0);
@@ -61,7 +61,7 @@ public class LienServeurWeb {
          }
          System.out.println(Encrypt);
          System.out.println(NEncrypt);
-return urlCle;
+
  }
 	
 	public static String setCles(String user, String IP){ // on s'en sert qu'une seule fois
@@ -75,19 +75,11 @@ Decrypt = Claves.getD();
 }
 	
 	
-	public static String[] nouvelUser(String user, String IP){// a lancer a la création d'un nouvel user
-        String[] resultat = new String[7];
-        resultat[1]=setCles(user, IP);
-        resultat[2]=getCles(user,IP);
+	public static String nouvelUser(String user, String IP){// a lancer a la création d'un nouvel user
+        setCles(user, IP);
+        getCles(user,IP);
  String url = "http://" + IP + "/premiertest/nouvelUser.php?user=" + user;
- resultat[0]= url;
- resultat[3]=Encrypt.toString();
- resultat[4]=NDecrypt.toString();
- resultat[5]=Decrypt.toString();
- resultat[6]=NEncrypt.toString();
-
-
- return resultat; // A Mettre dans un webview
+ return url; // A Mettre dans un webview
 }
 	
 	

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -59,31 +58,15 @@ public void validerPseudo(View view){
 			Toast.makeText(this, "Pseudo incorrect", Toast.LENGTH_LONG).show();
 		}
 		else{
-			String[] donnes =new String[3];
-			donnes=LienServeurWeb.nouvelUser(pseudoTape, prefs.getString("IP",""));
+			
+			LienServeurWeb.nouvelUser(pseudoTape, prefs.getString("IP",""));
 			
 			prefs.edit().putString("Pseudo", pseudoTape)
 						.commit();  
 			prefs.edit().putBoolean("siPseudoChoisi", true)
 						.commit();    
 		
-			String url = donnes[0];
-			
-			
-			
-			WebView browser = (WebView)findViewById(R.id.webView1);
-			browser.loadUrl(url);
-			browser.loadUrl(donnes[1]);
-			browser.loadUrl(donnes[2]);
-			
-			prefs.edit().putString("Encrypt",donnes[3])
-			.commit();
-			prefs.edit().putString("NDecrypt",donnes[4])
-			.commit();
-			prefs.edit().putString("Decrypt",donnes[5])
-			.commit();
-			prefs.edit().putString("NEncrypt",donnes[6])
-			.commit();
+		
 		
 		((EditText) findViewById(R.id.editText1)).setText("");
 		Toast.makeText(this, "Pseudo enregistré !", Toast.LENGTH_LONG).show();

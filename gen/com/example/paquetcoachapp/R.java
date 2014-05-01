@@ -82,11 +82,10 @@ public final class R {
         public static final int activity_message_prive=0x7f030005;
         public static final int activity_parametres=0x7f030006;
         public static final int activity_parametres_reseau=0x7f030007;
-        public static final int activity_resau=0x7f030008;
-        public static final int activity_reseau=0x7f030009;
-        public static final int activity_search=0x7f03000a;
-        public static final int activity_stats=0x7f03000b;
-        public static final int price_picker=0x7f03000c;
+        public static final int activity_reseau=0x7f030008;
+        public static final int activity_search=0x7f030009;
+        public static final int activity_stats=0x7f03000a;
+        public static final int price_picker=0x7f03000b;
     }
     public static final class menu {
         public static final int basic_action_bar=0x7f090000;

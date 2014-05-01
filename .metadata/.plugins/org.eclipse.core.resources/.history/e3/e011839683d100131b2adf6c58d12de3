@@ -76,18 +76,13 @@ Decrypt = Claves.getD();
 	
 	
 	public static String[] nouvelUser(String user, String IP){// a lancer a la création d'un nouvel user
-        String[] resultat = new String[7];
+        String[] resultat = new String[3];
         resultat[1]=setCles(user, IP);
         resultat[2]=getCles(user,IP);
  String url = "http://" + IP + "/premiertest/nouvelUser.php?user=" + user;
  resultat[0]= url;
- resultat[3]=Encrypt.toString();
- resultat[4]=NDecrypt.toString();
- resultat[5]=Decrypt.toString();
- resultat[6]=NEncrypt.toString();
-
-
- return resultat; // A Mettre dans un webview
+ 
+ return url; // A Mettre dans un webview
 }
 	
 	

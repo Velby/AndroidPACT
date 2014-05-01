@@ -69,21 +69,11 @@ public void validerPseudo(View view){
 		
 			String url = donnes[0];
 			
-			
-			
 			WebView browser = (WebView)findViewById(R.id.webView1);
 			browser.loadUrl(url);
 			browser.loadUrl(donnes[1]);
 			browser.loadUrl(donnes[2]);
 			
-			prefs.edit().putString("Encrypt",donnes[3])
-			.commit();
-			prefs.edit().putString("NDecrypt",donnes[4])
-			.commit();
-			prefs.edit().putString("Decrypt",donnes[5])
-			.commit();
-			prefs.edit().putString("NEncrypt",donnes[6])
-			.commit();
 		
 		((EditText) findViewById(R.id.editText1)).setText("");
 		Toast.makeText(this, "Pseudo enregistré !", Toast.LENGTH_LONG).show();

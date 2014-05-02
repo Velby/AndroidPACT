@@ -1,7 +1,10 @@
 package com.example.paquetcoachapp;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,16 +25,18 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
   
 public class BluetoothTestActivity extends Activity {
   private static final String TAG = "bluetooth1";
 
-    
+  private ArrayList<Long> conso=new ArrayList<Long>();  
   private BluetoothAdapter btAdapter = null;
   private BluetoothSocket btSocket = null;
   private OutputStream outStream = null;
   private InputStream inStream=null;
+  private CigDateArray consoDates=new CigDateArray();
       
   // SPP UUID service 
   private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -102,8 +107,8 @@ public class BluetoothTestActivity extends Activity {
     } catch (IOException e) {
       errorExit("Fatal Error", "In onResume() and output stream creation failed:" + e.getMessage() + ".");
     }
-    
     sendData("1");
+    
   }
   
   @Override
@@ -167,26 +172,17 @@ public class BluetoothTestActivity extends Activity {
   }
   
   public void getData(View v) {
-	  
+	  update();
       byte[] buffer = new byte[1024];// buffer store for the stream
       int bytes=-1; // #bytes returned from read()
       long result=0;
-      String stringLong="";
-      File appfile = new File(this.getFilesDir(), "donneesPack");
-       		
-        		
+      String stringLong="";        		
         sendData("1");
       // Keep listening to the InputStream until an exception occurs
       
-          try {
-              DataOutputStream out =  new DataOutputStream(new FileOutputStream(appfile));
-        	  if (!appfile.exists()) {
-        		  appfile.createNewFile();
-        	  }
-        		  // Read from the InputStream
+          try {// Read from the InputStream
         		  if (inStream.available()>0)   bytes = inStream.read(buffer);//LECTURE
         		  else {
-        			  out.close();
         			  throw new IOException();
         		  }
         		  
@@ -194,15 +190,20 @@ public class BluetoothTestActivity extends Activity {
         			  
         			  if (i%10==0 && i>0) {
         				  result= Long.valueOf(stringLong);
-        				  out.writeLong(result); // on stocke les nouvelles données  
+        				  conso.add(result);
         				  stringLong= "";        				  
         			  }
         			  stringLong=stringLong+Character.toString((char) buffer[i]);
       				
       			}
-        		 sendData("0");
+        		 
+        		 sendDataToApp();
         		 Toast.makeText(getApplicationContext(), "Tout reçu \n ("+(bytes-2)/10+" cigarettes fumées)", Toast.LENGTH_LONG).show();
-        		 out.close();
+        		 sendData("0");
+        		 sendData("0");
+        		 sendData("0");
+        		 
+        		 
           }
           
           catch (IOException e) { // Atteint quand le paquet n'envoie rien
@@ -240,5 +241,53 @@ public class BluetoothTestActivity extends Activity {
        
      
   }
+  
+  public void update() { //met a jour le arraylist en fonction du fichier en mémoire
+		conso=new ArrayList<Long>();
+		try {
+			DataInputStream in = null;
+			File packfile = new File(this.getFilesDir(), "donneesPack");
+			in = new DataInputStream(new FileInputStream(packfile));
+			long dateLong=in.readLong();
+			if (dateLong==-1) {
+				Toast toast = Toast.makeText(this.getApplicationContext(), "No previous data!", Toast.LENGTH_LONG);
+				toast.show();
+			}
+			
 
+			// La méthode read renvoie -1 dès qu'il n'y a plus rien à lire
+			
+			while (dateLong != -1) {
+				conso.add(dateLong);
+				dateLong=in.readLong();
+			}
+			if (in != null)
+				in.close();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+  public void sendDataToApp() {
+		try {
+		DataOutputStream out;
+		File packfile = new File(this.getFilesDir(), "donneesPack");
+		out = new DataOutputStream(new FileOutputStream(packfile));
+
+		// La méthode read renvoie -1 dès qu'il n'y a plus rien à lire
+		for (Long longDate: conso) {
+				
+					out.writeLong(longDate);
+				
+			}
+		out.writeLong(-1);
+		if (out != null)
+			out.close();
+			} catch (IOException e) {
+					e.printStackTrace();
+				}
+	}
+  
 }

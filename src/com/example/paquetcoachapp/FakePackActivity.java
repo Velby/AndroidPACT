@@ -121,7 +121,7 @@ import android.widget.Toast;
 		public void sendData() {
 			changerTexte();
 			try {
-			DataOutputStream out = null;
+			DataOutputStream out;
 			File packfile = new File(this.getFilesDir(), "donneesPack");
 			out = new DataOutputStream(new FileOutputStream(packfile));
 

@@ -40,15 +40,15 @@ public final class R {
         public static final int btlogo=0x7f020002;
         public static final int cigarette=0x7f020003;
         public static final int ic_smoke=0x7f020004;
+        public static final int icon=0x7f020005;
     }
     public static final class id {
         public static final int NumberPicker1=0x7f0a001b;
         public static final int NumberPicker2=0x7f0a001d;
         public static final int NumberPicker3=0x7f0a001c;
         public static final int action_back=0x7f0a0020;
-        public static final int action_bluetooth=0x7f0a0022;
         public static final int action_clear_all=0x7f0a0021;
-        public static final int action_fakePack=0x7f0a0023;
+        public static final int action_fakePack=0x7f0a0022;
         public static final int action_settings=0x7f0a001f;
         public static final int analogClock1=0x7f0a0001;
         public static final int bouton_bluetooth=0x7f0a000d;
